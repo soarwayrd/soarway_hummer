@@ -6,7 +6,6 @@
 | :----------------------------- | :--------------------------------------------------------------- |
 | components[i].type             | 依赖注入的具体实现类全称(`FullName`)及程序集名称(`AssemblyName`) |
 | components[i].services[j].type | 依赖注入的抽象接口全称(`FullName`)及程序集名称(`AssemblyName`)   |
-|                                |                                                                  |
 
 ```javascript
 {

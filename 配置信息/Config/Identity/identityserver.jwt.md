@@ -8,7 +8,6 @@
 | identityServerConfig.clients[i].id        | 客户端id，类似于微信第三方应用的appID         |
 | identityServerConfig.clients[i].secrets   | 客户端的秘钥，类似于微信第三方应用的appSecret |
 | identityServerConfig.clients[i].scopes    | 客户端请求的作用域                            |
-|                                           |                                               |
 
 
 ```javascript

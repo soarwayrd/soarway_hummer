@@ -26,8 +26,6 @@
 | certificates.cerPath  | IdentityServer4所使用的的整数文件路径，一般放置于宿主容器项目下的Certs文件夹内即可，并将pfx文件的属性改为**如果较新则复制**。 |
 | certificates.password | pfx证书的密码                                                                                                                 |
 | isWrapOutput          | `true`:返回值包含**接口状态信息**和**业务数据**，`false`:**只返回业务数据**                                                   |
-|                       |                                                                                                                               |
-
 ```javascript
 // isWrapOutput:true, 多返回一个status对象
 {
