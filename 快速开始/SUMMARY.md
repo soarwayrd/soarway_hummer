@@ -22,7 +22,9 @@
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
             return Core.API.Program.CreateBaseWebHostBuilder(args)
-                                   .UseStartup<Startup>();
+                                   .UseStartup<Startup>()
+								   //限制HTTP请求主体的最大尺寸
+                                   .UseKestrel(options => { options.Limits.MaxRequestBodySize = AppSettings.Get<int>(ConfigKey.MaxRequestBodySize) * 1024; });
         }
     }
    ```
