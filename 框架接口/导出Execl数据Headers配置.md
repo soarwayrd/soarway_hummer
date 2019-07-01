@@ -8,9 +8,9 @@
 
 | 节点       | 注释                                                  |
 | :--------- | :---------------------------------------------------- |
-| ExportFile | 是否下载`true/false`                                  |
-| size       | `size`                                                  |
-| num        | `num`                                                   |
+| ExportFile | 下载传`true`,不要下载`ExportFile`字段不要传           |
+| size       | `size`                                                |
+| num        | `num`                                                 |
 | Columns    | {"UserName":"用户名称","Cellphone":"电话","LockDate"} |
 
 **Columns说明** UserName为数据库字段名称，`用户名称`导到execl列头名称。Columns里的数据需要`UrlEncode`编码。
