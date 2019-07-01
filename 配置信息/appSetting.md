@@ -16,7 +16,8 @@
     "cerPath": "certs\\soarway.core.pfx",
     "password": "cm123456"
   },
-  "isWrapOutput": true
+  "isWrapOutput": true,
+  "maxRequestBodySize": "20000" //限制HTTP请求主体的最大尺寸(单位KB)
 }
 ```
 | 节点                  | 注释                                                                                                                          |
