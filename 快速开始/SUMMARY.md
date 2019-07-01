@@ -1,4 +1,4 @@
-1. 建立一个文件夹，先从git仓库内将hummer框架克隆到本地, 地址如下：
+1. 先建立一个文件夹，并从git仓库内将hummer框架克隆到本地, 地址如下：
    >```git clone "ssh://sw.gerrit/soarway_hummer" && scp -p sw.gerrit:hooks/commit-msg "soarway_hummer/.git/hooks/"```
 2. 打开soarway_hummer本地文件夹，找到`init_sln.bat`, 执行该bat，按照命令行打印出来的提示填写相关信息。cli会自动帮你**添加框架项目引用**及**初始化项目**。
    >第一步，输入你的解决方案文件夹名称：`soarway_demo`
