@@ -2,21 +2,21 @@
 
 **获取token配置**
 
-token地址[http://localhost:5100/connect/token]
+token地址 **http://localhost:5100/connect/token**
 
-**http://localhost:5100**配置在appSetting.json节点system.url配置的地址
+**http://localhost:5100** 配置在appSetting.json节点system.url配置的地址
 
 **POST**请求
 
 Body里的**from-data**格式
 
-| 节点                  | 注释                                                            |
-| :-------------------- | :-------------------------------------------------------------- |
-| client_id | hummer.core.api (配置在**appSetting.json**节点identityServerConfig.resources[i].name) |
-| client_secret | secret |
-| grant_type | password (账号密码方法验证) |
-| username | test123 (P_User表的用户名) |
-| password | 123456 (P_User表的密码)密码写到数据库是是md5加密的在postman请求的时候可以明文 |
+| 节点          | 注释                                                                                  |
+| :------------ | :------------------------------------------------------------------------------------ |
+| client_id     | hummer.core.api (配置在**appSetting.json**节点identityServerConfig.resources[i].name) |
+| client_secret | secret                                                                                |
+| grant_type    | password (账号密码方法验证)                                                           |
+| username      | test123 (P_User表的用户名)                                                            |
+| password      | 123456 (P_User表的密码)密码写到数据库是是md5加密的在postman请求的时候可以明文         |
 
 ```javascript
 {
@@ -29,20 +29,20 @@ Body里的**from-data**格式
 
 **获取refresh_token配置**
 
-token地址[http://localhost:5100/connect/token]
+token地址 **http://localhost:5100/connect/token**
 
-**http://localhost:5100**配置在appSetting.json节点system.url配置的地址
+**http://localhost:5100** 配置在appSetting.json节点system.url配置的地址
 
 **POST**请求
 
 Body里的**from-data**格式
 
-| 节点                  | 注释                                                            |
-| :-------------------- | :-------------------------------------------------------------- |
-| client_id | hummer.core.api (配置在**appSetting.json**节点identityServerConfig.resources[i].name) |
-| client_secret | secret |
-| grant_type | refresh_token (上面获取的**refresh_token**) |
-| refresh_token | faa2612d4789067176cce12a207a5b9e11f6adaada8764b59b3f0e5905dcf92c |
+| 节点          | 注释                                                                                  |
+| :------------ | :------------------------------------------------------------------------------------ |
+| client_id     | hummer.core.api (配置在**appSetting.json**节点identityServerConfig.resources[i].name) |
+| client_secret | secret                                                                                |
+| grant_type    | refresh_token (上面获取的**refresh_token**)                                           |
+| refresh_token | faa2612d4789067176cce12a207a5b9e11f6adaada8764b59b3f0e5905dcf92c                      |
 
 ```javascript
 {
