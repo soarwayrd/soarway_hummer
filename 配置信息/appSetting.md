@@ -59,3 +59,19 @@
     }
 }
 ```
+
+
+```C#
+{
+    "UserName": "test123",
+    "Cellphone": "12344",
+    "Gender": false,
+    "Enable": true,
+    "IsPc": false,
+    "IsMobile": false,
+    "IsLock": false,
+    "FailtCount": 0,
+    "LockDate": null,
+    "CreateDate": "2019-06-18T15:29:09.483"
+}
+```
