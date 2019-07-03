@@ -19,7 +19,7 @@ Install-Package IdentityServer4 -Version 2.4.0
 
 调用 **http://localhost:5100/.well-known/openid-configuration** 能调成功这个界面说明token配置成功。
 
-![GitHub](..\accets\well-known.png)
+![GitHub](../accets/well-known.png)
 
 **获取Token**
 
@@ -45,7 +45,7 @@ Body设置**from-data**格式
 | username      | test123 (P_User表的用户名)                                                            |
 | password      | 123456 (P_User表的密码)密码写到数据库是是md5加密的在postman请求的时候可以明文         |
 
-![GitHub](..\accets\gettoken.png)
+![GitHub](../accets/gettoken.png)
 
 
 **获取refresh_token配置**
@@ -66,7 +66,7 @@ Body设置**from-data**格式
 | grant_type    | refresh_token (上面获取的**refresh_token**)                                           |
 | refresh_token | 8e8ce2e1cfce2b1f699c0a8419ca3490cddf691d83d4846aa2300f3857708116                      |
 
-![GitHub](..\accets\refresh_token.png)
+![GitHub](../accets/refresh_token.png)
 
 到这里token和refresh_token就获取完成了。
 
