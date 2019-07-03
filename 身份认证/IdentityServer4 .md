@@ -70,12 +70,12 @@ Body设置**from-data**格式
 
 到这里token和refresh_token就获取完成了。
 
-获取的access_token数据可以在[https://jwt.io/]解码出来,access_token里放的数据尽量不要是重要的数据。
+获取的access_token数据可以在[https://jwt.io/] 解码出来,access_token里放的数据尽量不要是重要的数据。
 
 **使用方式**
 请求接口在在http headers里设置
 
-| 节点          | 注释                   |
+| Key          | VALUE                   |
 | :------------ | :--------------------- |
 | Authorization | Bearer 空格accesstoken |
 |               |
