@@ -12,6 +12,7 @@ Identity Server 4是ASP.NET Core 2的OpenID Connect和OAuth 2.0框架，可以�
 Install-Package IdentityServer4 -Version 2.4.0
 ```
 数据库**P_User**表添加一条用户的测试数据 
+
 | 字段     | 值                                          |
 | :------- | :------------------------------------------ |
 | UserName | test123                                     |
@@ -75,7 +76,7 @@ Body设置**from-data**格式
 **使用方式**
 请求接口在在http headers里设置
 
-| Key          | VALUE                   |
+| Key           | VALUE                  |
 | :------------ | :--------------------- |
 | Authorization | Bearer 空格accesstoken |
 |               |
