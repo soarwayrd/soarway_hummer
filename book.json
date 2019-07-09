@@ -13,8 +13,5 @@
 	  "theme-default": {
          "showLevel": true
 	  }
-	},
-	"structure": {
-        "readme": "SUMMARY.md"
-    }
+	}
 }
