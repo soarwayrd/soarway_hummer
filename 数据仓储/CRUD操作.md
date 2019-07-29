@@ -69,29 +69,4 @@
 
    // 根据查询条件，获取自然排序的IQueryable对象
    _userRepository.FindBySpecification(x => x.Cellphone.Contains("139"));
-
-
-   // 根据查询条件，获取IQueryable对象，并根据参数动态进行排序
-   List<OrderByDefine<User>> orderbyDefines = new List<OrderByDefine<User>>();
-   orderbyDefines.Add(new OrderByDefine<User>(x => x.CreateDate, queryDTO.IsCreateDateDesc));
-   orderbyDefines.Add(new OrderByDefine<User>(x => x.UserName, queryDTO.IsUserNameDesc));
-   _userRepository.FindBySpecification(x => x.Cellphone.Contains("139"), orderbyDefines.ToArray());
-
-
-   // 根据查询条件，获取IQueryable对象，并根据参数动态进行排序
-   List<OrderByDefine> orderbyDefines = new List<OrderByDefine>();
-   orderbyDefines.Add(new OrderByDefine("CreateDate", queryDTO.IsCreateDateDesc));
-   orderbyDefines.Add(new OrderByDefine("UserName", queryDTO.IsUserNameDesc));
-   _userRepository.FindBySpecification(x => x.Cellphone.Contains("139"), orderbyDefines.ToArray();
-
-
-   // 根据查询条件，获取IQueryable对象，并写死排序参数
-   _userRepository.FindBySpecification(x => x.Cellphone.Contains("139"), query => query.OrderBy(x => x.UserID).ThenBy(x => x.UserName));
-   
-   // 等价于, 大多数场景应优先选用以下的OrderBy用法
-   _userRepository.FindBySpecification(x => x.Cellphone.Contains("139")).OrderBy(x => x.UserID).ThenBy(x => x.UserName);
-   
-
-   // 根据查询对象的定义，自动生成查询表达式，获取IQueryable对象
-   _userRepository.FindBySpecification<UserQueryDTO>(userQueryDTO);
    ```
