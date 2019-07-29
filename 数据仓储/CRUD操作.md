@@ -99,8 +99,9 @@
    // 根据查询对象的定义，自动生成查询表达式，获取IQueryable对象
    _userRepository.FindBySpecification<UserQueryDTO>(userQueryDTO);
 
-      
-   public class UserQueryDTO
+   ```
+   >  
+      public class UserQueryDTO
    {
        public int UserID { get; set; }
 
@@ -110,8 +111,7 @@
        [ClauseDefine(OperatorType.StartsWith, CondType.OrRight)]
        public string Cellphone { get; set; }
    }
-   ```
-   >   方法会根据ClauseDefineAttribute类的定义来自动生成查询表达式
+    方法会根据ClauseDefineAttribute类的定义来自动生成查询表达式
     如果DTO的字段不填写ClauseDefineAttribute定义，
     则生成规则按照OperateType.Equals, CondType.And, Alias=字段名本身来处理。
     以UserQueryDTO为例，UserID字段就没有定义ClauseDefineAttribute，
