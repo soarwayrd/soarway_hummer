@@ -55,7 +55,9 @@
 4. Select - 查询
    
    ```csharp
-   // 查询功能分为查询单个实体和查询IQueryable对象，除了函数名不一样外，查询单个实体和查询IQueryable对象拥有一样的参数列表，及对称的方法重载数量
+   // 查询功能分为查询单个实体和查询IQueryable对象，
+   // 除了函数名不一样外，查询单个实体和查询IQueryable对象拥有一样的参数列表，
+   // 及对称的方法重载数量
    // 查询单个实体的函数均为 T GetBySpecification 开头
    // 查询IQueryable对象的函数均为 IEnumerable<T> FindBySpecification 开头
 
@@ -95,7 +97,17 @@
    // 根据查询对象的定义，自动生成查询表达式，获取IQueryable对象
    _userRepository.FindBySpecification<UserQueryDTO>(userQueryDTO);
    // 方法会根据ClauseDefineAttribute类的定义来自动生成查询表达式
-   // 如果DTO的字段不填写ClauseDefineAttribute定义，则生成规则按照OperateType.Equals, CondType.And, Alias=字段名本身来处理。以UserQueryDTO为例，UserID字段就没有定义ClauseDefineAttribute，最后整个DTO将会被翻译为x=>x.UserID=dto.UserID && x.UserName.Contains(dto.UserName) && x.Cellphone.StartsWith(dto.Cellphone)。可以省去大量if...else...的DTO判断语句。
+   // 如果DTO的字段不填写ClauseDefineAttribute定义，
+   // 则生成规则按照OperateType.Equals, CondType.And, Alias=字段名本身来处理。
+   // 以UserQueryDTO为例，UserID字段就没有定义ClauseDefineAttribute，
+   // 最后整个DTO将会被翻译为
+   // x=>x.UserID=dto.UserID && x.UserName.Contains(dto.UserName) && x.Cellphone.StartsWith(dto.Cellphone)。
+   // 可以省去大量if...else...的DTO判断语句。
+   
+   ```
+
+   ```csharp
+   
    public class UserQueryDTO
    {
        public int UserID { get; set; }
