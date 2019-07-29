@@ -54,19 +54,99 @@
 
 4. Select - 查询
    
-   查询功能分为查询单个实体和查询IQueryable对象，
-   除了函数名不一样外，查询单个实体和查询IQueryable对象拥有一样的参数列表，及对称的方法重载数量,查询单个实体的函数均为 T GetBySpecification 开头,查询IQueryable对象的函数均为 IEnumerable<T> FindBySpecification 开头
-
    ```csharp
+   // 查询功能分为查询单个实体和查询IQueryable对象，
+   // 除了函数名不一样外，查询单个实体和查询IQueryable对象拥有一样的参数列表，
+   // 及对称的方法重载数量
+   // 查询单个实体的函数均为 T GetBySpecification 开头
+   // 查询IQueryable对象的函数均为 IEnumerable<T> FindBySpecification 开头
+
    // 根据ID获取单个实体
    _userRepository.GetByPrimaryKey(1);
+
    // 获取仓储的IQueryable对象
    var query = _userRepository.FindBySpecification();
-
    // 等价于
    var query = _userRepository.Entities as IQueryable<User>;
 
 
    // 根据查询条件，获取自然排序的IQueryable对象
    _userRepository.FindBySpecification(x => x.Cellphone.Contains("139"));
+
+
+   // 根据查询条件，获取IQueryable对象，并根据参数动态进行排序
+   List<OrderByDefine<User>> orderbyDefines = new List<OrderByDefine<User>>();
+   orderbyDefines.Add(new OrderByDefine<User>(x => x.CreateDate, queryDTO.IsCreateDateDesc));
+   orderbyDefines.Add(new OrderByDefine<User>(x => x.UserName, queryDTO.IsUserNameDesc));
+   _userRepository.FindBySpecification(x => x.Cellphone.Contains("139"), orderbyDefines.ToArray());
+
+
+   // 根据查询条件，获取IQueryable对象，并根据参数动态进行排序
+   List<OrderByDefine> orderbyDefines = new List<OrderByDefine>();
+   orderbyDefines.Add(new OrderByDefine("CreateDate", queryDTO.IsCreateDateDesc));
+   orderbyDefines.Add(new OrderByDefine("UserName", queryDTO.IsUserNameDesc));
+   _userRepository.FindBySpecification(x => x.Cellphone.Contains("139"), orderbyDefines.ToArray();
+
+
+   // 根据查询条件，获取IQueryable对象，并写死排序参数
+   _userRepository.FindBySpecification(x => x.Cellphone.Contains("139"), query => query.OrderBy(x => x.UserID).ThenBy(x => x.UserName));
+   // 等价于, 大多数场景应优先选用以下的OrderBy用法
+   _userRepository.FindBySpecification(x => x.Cellphone.Contains("139")).OrderBy(x => x.UserID).ThenBy(x => x.UserName);
+   
+
+   // 根据查询对象的定义，自动生成查询表达式，获取IQueryable对象
+   _userRepository.FindBySpecification<UserQueryDTO>(userQueryDTO);
+ 
+   
+   ```
+
+   ```csharp
+   // 方法会根据ClauseDefineAttribute类的定义来自动生成查询表达式
+   
+   // 如果DTO的字段不填写ClauseDefineAttribute定义，
+
+   // 则生成规则按照OperateType.Equals, CondType.And, Alias=字段名本身来处理。
+   
+   // 以UserQueryDTO为例，UserID字段就没有定义ClauseDefineAttribute，
+   
+   // 最后整个DTO将会被翻译为
+   
+   // x=>x.UserID=dto.UserID && x.UserName.Contains(dto.UserName) && x.Cellphone.StartsWith(dto.Cellphone)。
+   
+   // 可以省去大量if...else...的DTO判断语句。
+   
+   public class UserQueryDTO
+   {
+       public int UserID { get; set; }
+
+       [ClauseDefine(OperatorType.Contains, CondType.And)]
+       public string UserName { get; set; }
+
+       [ClauseDefine(OperatorType.StartsWith, CondType.OrRight)]
+       public string Cellphone { get; set; }
+   }
+   ```
+
+5. Select - 分页
+   
+   ```csharp
+   // 框架基仓储实现了很多IQueryable接口的扩展方法，以方便开发者专注于业务
+
+   // 获取第1条到第10条数据
+   _userRepository.FindBySpecification().ToPageResult(1, 10);
+
+   // 获取第1条到第10条数据，并将其映射为IEnumerable<UserQueryResultDTO>类型
+   _userRepository.FindBySpecification().ToPageResult<User, UserQueryResultDTO>(1, 10);
+
+   // 根据查询条件，获取IQueryable对象，并根据参数动态进行排序,最后返回第1条到第10条数据
+   List<OrderByDefine<User>> orderbyDefines = new List<OrderByDefine<User>>();
+   orderbyDefines.Add(new OrderByDefine<User>(x => x.CreateDate, queryDTO.IsCreateDateDesc));
+   orderbyDefines.Add(new OrderByDefine<User>(x => x.UserName, queryDTO.IsUserNameDesc));
+   _userRepository.FindBySpecification(x => x.Cellphone.Contains("139"), orderbyDefines.ToArray()).ToPageResult(1, 10);
+
+   // 根据查询条件，获取IQueryable对象，并根据参数动态进行排序，最后返回第1条到第10条数据
+   List<OrderByDefine> orderbyDefines = new List<OrderByDefine>();
+   orderbyDefines.Add(new OrderByDefine("CreateDate", queryDTO.IsCreateDateDesc));
+   orderbyDefines.Add(new OrderByDefine("UserName", queryDTO.IsUserNameDesc));
+   _userRepository.FindBySpecification(x => x.Cellphone.Contains("139"), orderbyDefines.ToArray().ToPageResult(1, 10);
    ```
