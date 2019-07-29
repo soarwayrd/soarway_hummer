@@ -100,21 +100,3 @@
    _userRepository.FindBySpecification<UserQueryDTO>(userQueryDTO);
 
    ```
-   >  
-      public class UserQueryDTO
-   {
-       public int UserID { get; set; }
-
-       [ClauseDefine(OperatorType.Contains, CondType.And)]
-       public string UserName { get; set; }
-
-       [ClauseDefine(OperatorType.StartsWith, CondType.OrRight)]
-       public string Cellphone { get; set; }
-   }
-    方法会根据ClauseDefineAttribute类的定义来自动生成查询表达式
-    如果DTO的字段不填写ClauseDefineAttribute定义，
-    则生成规则按照OperateType.Equals, CondType.And, Alias=字段名本身来处理。
-    以UserQueryDTO为例，UserID字段就没有定义ClauseDefineAttribute，
-    最后整个DTO将会被翻译为
-    x=>x.UserID=dto.UserID && x.UserName.Contains(dto.UserName) && x.Cellphone.StartsWith(dto.Cellphone)。
-    可以省去大量if...else...的DTO判断语句。
