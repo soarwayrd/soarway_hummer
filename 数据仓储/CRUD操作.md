@@ -1,6 +1,7 @@
 框架在`BaseRepository`类里实现了一套封装了简单CRUD操作。下面以`UserRepository`为例演示CRUD的基础使用。
 
 1. Create - 新增
+   
    ```csharp
    // 新增单条数据
    _userRepository.Create(new User() { UserName = "张三", Password = "abc123", Gender = true, IsLock = false });
@@ -10,7 +11,9 @@
         new User() { UserName = "李四", Password = "abc123", Gender = true, IsLock = false } ,
         new User() { UserName = "王五", Password = "abc123", Gender = false, IsLock = false }});
    ```
+
 2. Delete - 删除
+   
    ```csharp
    // 根据实体删除单条数据
    var user = _userRepository.GetByPrimaryKey(1);
@@ -26,7 +29,9 @@
    var users = _userRepository.FindBySpecification(x => x.UserID > 0);
    _userRepository.Deletes(users);
    ```
+
 3. Update - 修改
+   
    ```csharp
    // 修改一个实体
    var user = _userRepository.GetByPrimaryKey(1);
@@ -46,7 +51,9 @@
    _userRepository.Updates(users);
 
    ```
+
 4. Select - 查询
+   
    ```csharp
    // 查询功能分为查询单个实体和查询IQueryable对象，除了函数名不一样外，查询单个实体和查询IQueryable对象拥有一样的参数列表，及对称的方法重载数量
    // 查询单个实体的函数均为 T GetBySpecification 开头
@@ -99,9 +106,10 @@
        [ClauseDefine(OperatorType.StartsWith, CondType.OrRight)]
        public string Cellphone { get; set; }
    }
-
    ```
+
 5. Select 分页
+   
    ```csharp
    // 框架基仓储实现了很多IQueryable接口的扩展方法，以方便开发者专注于业务
 
@@ -122,6 +130,4 @@
    orderbyDefines.Add(new OrderByDefine("CreateDate", queryDTO.IsCreateDateDesc));
    orderbyDefines.Add(new OrderByDefine("UserName", queryDTO.IsUserNameDesc));
    _userRepository.FindBySpecification(x => x.Cellphone.Contains("139"), orderbyDefines.ToArray().ToPageResult(1, 10);
-
-
    ```
