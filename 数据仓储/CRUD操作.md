@@ -54,12 +54,13 @@
 
 4. Select - 查询
    
+   >查询功能分为查询单个实体和查询IQueryable对象，
+   除了函数名不一样外，查询单个实体和查询IQueryable对象拥有一样的参数列表，
+   及对称的方法重载数量
+   查询单个实体的函数均为 T GetBySpecification 开头
+   查询IQueryable对象的函数均为 IEnumerable<T> FindBySpecification 开头
+
    ```csharp
-   // 查询功能分为查询单个实体和查询IQueryable对象，
-   // 除了函数名不一样外，查询单个实体和查询IQueryable对象拥有一样的参数列表，
-   // 及对称的方法重载数量
-   // 查询单个实体的函数均为 T GetBySpecification 开头
-   // 查询IQueryable对象的函数均为 IEnumerable<T> FindBySpecification 开头
 
    // 根据ID获取单个实体
    _userRepository.GetByPrimaryKey(1);
@@ -103,11 +104,7 @@
    // 最后整个DTO将会被翻译为
    // x=>x.UserID=dto.UserID && x.UserName.Contains(dto.UserName) && x.Cellphone.StartsWith(dto.Cellphone)。
    // 可以省去大量if...else...的DTO判断语句。
-   
-   ```
-
-   ```csharp
-   
+      
    public class UserQueryDTO
    {
        public int UserID { get; set; }
@@ -118,28 +115,4 @@
        [ClauseDefine(OperatorType.StartsWith, CondType.OrRight)]
        public string Cellphone { get; set; }
    }
-   ```
-
-5. Select 分页
-   
-   ```csharp
-   // 框架基仓储实现了很多IQueryable接口的扩展方法，以方便开发者专注于业务
-
-   // 获取第1条到第10条数据
-   _userRepository.FindBySpecification().ToPageResult(1, 10);
-
-   // 获取第1条到第10条数据，并将其映射为IEnumerable<UserQueryResultDTO>类型
-   _userRepository.FindBySpecification().ToPageResult<User, UserQueryResultDTO>(1, 10);
-
-   // 根据查询条件，获取IQueryable对象，并根据参数动态进行排序,最后返回第1条到第10条数据
-   List<OrderByDefine<User>> orderbyDefines = new List<OrderByDefine<User>>();
-   orderbyDefines.Add(new OrderByDefine<User>(x => x.CreateDate, queryDTO.IsCreateDateDesc));
-   orderbyDefines.Add(new OrderByDefine<User>(x => x.UserName, queryDTO.IsUserNameDesc));
-   _userRepository.FindBySpecification(x => x.Cellphone.Contains("139"), orderbyDefines.ToArray()).ToPageResult(1, 10);
-
-   // 根据查询条件，获取IQueryable对象，并根据参数动态进行排序，最后返回第1条到第10条数据
-   List<OrderByDefine> orderbyDefines = new List<OrderByDefine>();
-   orderbyDefines.Add(new OrderByDefine("CreateDate", queryDTO.IsCreateDateDesc));
-   orderbyDefines.Add(new OrderByDefine("UserName", queryDTO.IsUserNameDesc));
-   _userRepository.FindBySpecification(x => x.Cellphone.Contains("139"), orderbyDefines.ToArray().ToPageResult(1, 10);
    ```
