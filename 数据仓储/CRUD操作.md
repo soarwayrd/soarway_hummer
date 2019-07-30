@@ -72,6 +72,9 @@
    // 根据查询条件，获取自然排序的IQueryable对象
    _userRepository.FindBySpecification(x => x.Cellphone.Contains("139"));
 
+   // 根据查询条件，返回DTO列表对象
+   _userRepository.FindBySpecification(x => x.Cellphone.Contains("139")).ToList<User, UserQueryResultDTO>();
+   
    // 根据查询条件，获取IQueryable对象，并根据参数动态进行排序 
    List<OrderByDefine<User>> orderbyDefines = new List<OrderByDefine<User>>();
    orderbyDefines.Add(new OrderByDefine<User>(x => x.CreateDate, queryDTO.IsCreateDateDesc));
