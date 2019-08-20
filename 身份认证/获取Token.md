@@ -1,8 +1,34 @@
-如何获取Token
+####如何获取Token
 
 **Identity Server 4介绍**
 
-Identity Server 4是ASP.NET Core 2的OpenID Connect和OAuth 2.0框架，可以做的功能有单点登陆、Api 身份验证、授权服务、EntityFramework的配置的支持、登录注销等。它是一个开源的项目，最重要的是Identity Server 4可以由你自己定制来适应你的解决方案。
+IdentityServer4 是为ASP.NET Core 2.系列量身打造的一款基于 OpenID Connect 和 OAuth 2.0 认证框架。
+将identityserver部署在你的应用中，具备如下的特点
+
+1. 认证服务
+   >可以为你的应用（如网站、本地应用、移动端、服务）做集中式的登录逻辑和工作流控制。IdentityServer是完全实现了OpenID Connect协议标准。
+
+2. 单点登录登出(SSO)
+   >在各种类型的应用上实现单点登录登出。
+
+3. API访问控制
+   >为各种各样的客户端颁发access token令牌,如服务与服务之间的通讯、网站应用、SPAS和本地应用或者移动应用。
+
+4. 联合网关
+   >支持来自Azure Active Directory, Google, Facebook这些知名应用的身份认证，可以不必关心连接到这些应用的细节就可以保护你的应用。
+
+5. 专注于定制
+   >最重要的是identityserver可以根据需求自行开发来适应应用程序的变化。identityserver不是一个框架、也不是一个盒装产品或一个saas系统，您可以编写代码来适应各种场景。
+
+ #### 更深入学习IdentityServer4可以参考以下文章内容：
+  ><a href="http://www.identityserver.com.cn/" target="_blank">IdentityServer4中文文档</a>
+
+  ><a href="https://www.cnblogs.com/stulzq/p/8119928.html" target="_blank">IdentityServer4 中文文档与实战</a>
+
+  ><a href="https://www.cnblogs.com/franhome/p/8811559.html" target="_blank">IdentityServer4-介绍大纲</a>
+  
+  ><a href="https://www.cnblogs.com/cgzl/p/7780559.html" target="_blank">使用Identity Server 4建立Authorization Server</a>
+
 
 **安装Identity Server 4**
 
@@ -11,12 +37,15 @@ Identity Server 4是ASP.NET Core 2的OpenID Connect和OAuth 2.0框架，可以�
 ```
 Install-Package IdentityServer4 -Version 2.4.0
 ```
-数据库**P_User**表添加一条用户的测试数据 
+
+数据库**SPUser**表添加一条用户的测试数据 
 
 | 字段     | 值                                          |
 | :------- | :------------------------------------------ |
-| UserName | test123                                     |
+| UserName | admin                                       |
 | Password | 42a2f0d93b70cafb49963f8238693b47(*md5加密*) |
+
+**http://localhost:5100** 地址配置在appSetting.json节点system.url配置里的地址
 
 调用 **http://localhost:5100/.well-known/openid-configuration** 能调成功这个界面说明token配置成功。
 
@@ -24,48 +53,25 @@ Install-Package IdentityServer4 -Version 2.4.0
 
 **获取Token**
 
-调用 **http://localhost:5100/connect/token** 
+调用 **http://localhost:5100/api/connect/token** 
 
-**http://localhost:5100** 地址配置在appSetting.json节点system.url配置的地址
-
-Body设置**from-data**格式
+Body选择raw **JSON(application/json)** 格式
 
 ```javascript
-    client_id:hummer.core.api
-    client_secret:secret
-    grant_type:password
-    username:test123
-    password:123456
+    {"UserName":"admin","Password":"123456"}
 ```
-
-| 节点          | 注释                                                                                  |
-| :------------ | :------------------------------------------------------------------------------------ |
-| client_id     | hummer.core.api (配置在**appSetting.json**节点identityServerConfig.resources[i].name) |
-| client_secret | secret                                                                                |
-| grant_type    | password (账号密码方法验证)                                                           |
-| username      | test123 (P_User表的用户名)                                                            |
-| password      | 123456 (P_User表的密码)密码写到数据库是是md5加密的在postman请求的时候可以明文         |
 
 ![GitHub](../accets/gettoken.png)
 
-
 **获取refresh_token配置**
 
-Body设置**from-data**格式
+调用 **http://localhost:5100/api/Connect/refreshtoken** 
 
-```javascrpit
-    client_id:hummer.core.api
-    client_secret:secret
-    grant_type:refresh_token
-    refresh_token:8e8ce2e1cfce2b1f699c0a8419ca3490cddf691d83d4846aa2300f3857708116
+Body选择raw **JSON(application/json)** 格式
+
+```javascript
+    {"RefreshToken": ""}
 ```
-
-| 节点          | 注释                                                                                  |
-| :------------ | :------------------------------------------------------------------------------------ |
-| client_id     | hummer.core.api (配置在**appSetting.json**节点identityServerConfig.resources[i].name) |
-| client_secret | secret                                                                                |
-| grant_type    | refresh_token (上面获取的**refresh_token**)                                           |
-| refresh_token | 8e8ce2e1cfce2b1f699c0a8419ca3490cddf691d83d4846aa2300f3857708116                      |
 
 ![GitHub](../accets/refresh_token.png)
 
@@ -80,3 +86,23 @@ Body设置**from-data**格式
 | :------------ | :--------------------- |
 | Authorization | Bearer 空格accesstoken |
 |               |
+
+**Token可以选择存到Redis还和SQL Server**
+
+1. 找到*Config/Autofac/autofac.implement.config.json*配置文件。
+   
+   >**Soarway.Hummer.Core.Repository.EF.SqlRepository** 配置主要是用于存取Token、接口资源及权限数据，这边配置的是**SqlRepository** 到时候token、接口资源及权限的数据就会写到SQL Server。
+
+   >**Soarway.Hummer.Core.Repository.EF.RedisRepository** 配置**RedisRepository** Token、接口资源及权限数据就会写到Redis，前提是要先安装Redis服务并开启Redis远程访问配置。[Redis远程访问配置](./Redis远程访问配置.md)
+
+   ```javascript
+    {
+      "type": "Soarway.Hummer.Core.Repository.EF.SqlRepository, Soarway.Hummer.Core.Repository.EF",
+      "services": [
+        {
+          "type": "Soarway.Hummer.Core.IRepository.ICacheRepository, Soarway.Hummer.Core.IRepository"
+        }
+      ]
+    }
+    ```
+   

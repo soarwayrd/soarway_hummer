@@ -8,7 +8,8 @@
 ### 配置信息
 * [appSettiing](配置信息/appsetting.md)
 * [autofac.automapper](配置信息/Config/AutoFac/autofac.automapper.md)
-* [配置文件介绍](/快速开始/配置文件介绍.md)
+* [配置文件介绍](/配置信息/配置文件介绍.md)
+* [Redis远程访问配置](/配置信息/Redis远程访问配置.md)
 
 ### 身份认证
 * [获取Token](身份认证/获取Token.md)
