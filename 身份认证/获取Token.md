@@ -93,7 +93,7 @@ Body选择raw **JSON(application/json)** 格式
    
    >**Soarway.Hummer.Core.Repository.EF.SqlRepository** 配置主要是用于存取Token、接口资源及权限数据，这边配置的是**SqlRepository** 到时候token、接口资源及权限的数据就会写到SQL Server。
 
-   >**Soarway.Hummer.Core.Repository.EF.RedisRepository** 配置**RedisRepository** Token、接口资源及权限数据就会写到Redis，前提是要先安装Redis服务并开启Redis远程访问配置。[Redis远程访问配置](./Redis远程访问配置.md)
+   >**Soarway.Hummer.Core.Repository.EF.RedisRepository** 配置**RedisRepository** Token、接口资源及权限数据就会写到Redis，前提是要先安装Redis服务并开启Redis远程访问配置。[Redis远程访问配置](/配置信息/Redis远程访问配置.md)
 
    ```javascript
     {
