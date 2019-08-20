@@ -2,11 +2,13 @@
 * [简介](README.md)
 * [概述](概述/SUMMARY.md)
 * [框架搭建](/快速开始/框架搭建.md)
-* [最佳实践](/快速开始/最佳实践.md)
+* [环境安装与编译](/快速开始/环境安装与编译.md)
+* [如何开始](/快速开始/如何开始.md)
 
 ### 配置信息
 * [appSettiing](配置信息/appsetting.md)
 * [autofac.automapper](配置信息/Config/AutoFac/autofac.automapper.md)
+* [配置文件介绍](/快速开始/配置文件介绍.md)
 
 ### 身份认证
 * [获取Token](身份认证/获取Token.md)
