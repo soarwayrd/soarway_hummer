@@ -27,7 +27,7 @@
 | certificates.cerPath  | IdentityServer4所使用的的整数文件路径，一般放置于宿主容器项目下的Certs文件夹内即可，并将pfx文件的属性改为**如果较新则复制**。 |
 | certificates.password | pfx证书的密码                                                                                                                 |
 | isWrapOutput          | `true`:返回值包含**接口状态信息**和**业务数据**，`false`:**只返回业务数据**                                                   |
-| maxRequestBodySize    | 限制HTTP请求主体的最大尺寸(单位KB)，主要用于限制附件上传大小                                                                    |
+| isApiRequirePermission    |   是否开启API接口权限验证，验证规则：用户的ClientType包含接口的ClientType且对用户分配过接口权限，ClientType：客户端类型，包括PC、Mobile以及API |
 ```javascript
 // isWrapOutput:true, 多返回一个status对象
 {
